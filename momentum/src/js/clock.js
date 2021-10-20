@@ -52,10 +52,10 @@ export default class Clock {
     const date = this._container.querySelector('.date');
     const greetings = this._container.querySelector('.greetings');
     const greeting = greetings.querySelector('.greeting');
-    const options = {weekday: 'long', month: 'long', day: 'numeric'}
+    const options = {weekday: 'long', month: 'long', day: 'numeric', hour12: false}
     const partOfDay = {
       'ru-RU': ['Доброе утро,&nbsp;', 'Добрый день,&nbsp;', 'Добрый вечер,&nbsp;', 'Доброй ночи,&nbsp;'],
-      'en-US': ['Good morning,&nbsp;', 'Good day,&nbsp;', 'Good evening,&nbsp;', 'Good night,&nbsp;']
+      'en-US': ['Good morning,&nbsp;', 'Good afternoon,&nbsp;', 'Good evening,&nbsp;', 'Good night,&nbsp;']
     }
 
     const hour = dateObj.getHours();
