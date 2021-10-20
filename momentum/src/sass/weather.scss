@@ -1,0 +1,60 @@
+.section-weather {
+  .weather-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 16px;
+    line-height: 24px;
+
+    .city {
+      border: none;
+      outline: none;;
+      border-bottom: 1px solid white;
+      background-color: transparent;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .icon-temperature {
+      display: flex;
+      gap: 10px;
+      font-size: 32px;
+      line-height: 32px;
+    }
+
+    .weather-description {
+      font-size: 12px;
+      line-height: 18px;
+      .description {
+        text-transform: capitalize;
+      }
+    }
+
+    .wind-humidity {
+      display: flex;
+      gap: 15px;
+      .wind,
+      .humidity {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-left: 20px;
+        &::before {
+          position: absolute;
+          content: "";
+          left: 0;
+          display: block;
+          width: 16px;
+          height: 16px;
+          background-position: center;
+          background-size: contain;
+        }
+      }
+      .wind::before {
+        background-image: url('../assets/svg/wind.svg');
+      }
+      .humidity::before {
+        background-image: url('../assets/svg/humidity.svg');
+      }
+    }
+  }
+}

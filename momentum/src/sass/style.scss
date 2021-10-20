@@ -11,3 +11,20 @@
 
 @import "clock";
 @import "player";
+@import "weather";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  .section {
+    padding: 15px;
+  }
+  .top {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+  }
+  .section-clock {
+    flex: 1;
+  }
+}
