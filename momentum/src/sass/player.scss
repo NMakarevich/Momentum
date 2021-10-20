@@ -1,19 +1,69 @@
 .section-player {
   padding: 10px;
+  max-width: 260px;
+  width: 100%;
   .player-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    .sound-name,
+    font-size: 16px;
+    line-height: 24px;
+    .player-title {
+      display: flex;
+      justify-content: center;
+    }
     .playlist-item {
-      font-size: 16px;
-      line-height: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      list-style: none;
+      &.highlight {
+        text-shadow: 0 0 10px;
+      }
+      .button {
+        display: block;
+        width: 16px;
+        height: 16px;
+        border: none;
+        outline: none;
+        background-image: url('../assets/svg/play.svg');
+        background-color: transparent;
+        background-position: center;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        cursor: pointer;
+      }
     }
     .controls {
       display: flex;
       flex-direction: column;
       gap: 10px;
+      input[type="range"] {
+        -webkit-appearance: none;
+        height: 5px;
+        background: white;
+        &::-webkit-slider-thumb {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: white;
+          box-shadow: 0 0 3px black;
+          -webkit-appearance: none;
+          cursor: pointer;
+        }
+      }
+      &-progress {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 16px;
+        line-height: 24px;
+        .player-progress {
+          flex: 1;
+        }
+      }
       &-volume {
+        align-self: center;
         gap: 10px;
         display: flex;
         align-items: center;
@@ -23,29 +73,19 @@
           height: 24px;
           border: none;
           background-color: transparent;
-          background-image: url('../assets/svg/volume.svg');
+          background-image: url('../assets/svg/mute.svg');
           background-position: center;
           background-repeat: no-repeat;
           background-size: 100% 100%;
           cursor: pointer;
-        };
-        .player-volume {
-          -webkit-appearance: none;
-          height: 5px;
-          background: white;
-          &::-webkit-slider-thumb {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: white;
-            box-shadow: 0 0 3px black;
-            -webkit-appearance: none;
-            cursor: pointer;
+          &.active {
+            background-image: url('../assets/svg/volume.svg')
           }
-        }
+        };
       }
       &-buttons {
         display: flex;
+        justify-content: center;
         gap: 15px;
         .button {
           display: block;
@@ -61,8 +101,11 @@
             background-image: url('../assets/svg/play-prev.svg');
           }
           &-play {
-            background-image: url('../assets/svg/play.svg');
+            background-image: url('../assets/svg/pause.svg');
             background-size: 100% 100%;
+          }
+          &-play.paused {
+            background-image: url('../assets/svg/play.svg');
           }
           &-next {
             background-image: url('../assets/svg/play-next.svg')
