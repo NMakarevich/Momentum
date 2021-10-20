@@ -118,10 +118,12 @@ export default class Player {
     if (target.tagName != 'BUTTON') return;
 
     if(target.classList.contains('button-prev')) {
+      target.nextElementSibling.classList.remove('paused');
       this.prevAudio();
     }
 
     if(target.classList.contains('button-next')) {
+      target.previousElementSibling.classList.remove('paused');
       this.nextAudio();
     }
 
