@@ -7,18 +7,19 @@
     width: 100%;
   }
   .time {
-    font-size: 40px;
-    line-height: 60px;
+    font-size: 96px;
+    line-height: 128px;
   }
   .date {
-    font-size: 20px;
-    line-height: 30px;
+    font-size: 36px;
+    line-height: 54px;
   }
 
   .greetings {
     display: flex;
-    font-size: 28px;
-    line-height: 42px;
+    align-items: center;
+    font-size: 48px;
+    line-height: 48px;
     width: 100%;
     & * {
       font-size: inherit;

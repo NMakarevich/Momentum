@@ -4,7 +4,7 @@ export default class Clock {
   constructor() {
     this._container = null;
     this._username = '';
-    this._locale = 'en-US';
+    this._locale = 'en';
     this.render();
     this.updateClock = this.updateClock.bind(this)
     this.inputUsername = this.inputUsername.bind(this)
@@ -38,11 +38,15 @@ export default class Clock {
   }
 
   clockTemplate(name) {
+    const placeholder = {
+      'en': 'Enter your name',
+      'ru': 'Введите ваше имя'
+    }
     return `<div class="time"></div>
     <div class="date"></div>
     <div class="greetings">
       <p class="greeting"></p>
-      <input type="text" name="username" id="momentumUsername" placeholder="Enter your name" value="${name}">
+      <input type="text" name="username" id="momentumUsername" placeholder="${placeholder[this._locale]}" value="${name}">
     </div>`
   }
 
@@ -54,8 +58,8 @@ export default class Clock {
     const greeting = greetings.querySelector('.greeting');
     const options = {weekday: 'long', month: 'long', day: 'numeric'}
     const partOfDay = {
-      'ru-RU': ['Доброе утро,&nbsp;', 'Добрый день,&nbsp;', 'Добрый вечер,&nbsp;', 'Доброй ночи,&nbsp;'],
-      'en-US': ['Good morning,&nbsp;', 'Good afternoon,&nbsp;', 'Good evening,&nbsp;', 'Good night,&nbsp;']
+      'ru': ['Доброе утро,&nbsp;', 'Добрый день,&nbsp;', 'Добрый вечер,&nbsp;', 'Доброй ночи,&nbsp;'],
+      'en': ['Good morning,&nbsp;', 'Good afternoon,&nbsp;', 'Good evening,&nbsp;', 'Good night,&nbsp;']
     }
 
     const hour = dateObj.getHours();
