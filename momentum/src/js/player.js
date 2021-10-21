@@ -172,6 +172,7 @@ export default class Player {
     if (target.tagName !== 'BUTTON') return;
 
     this.currentAudio = target.dataset.index;
+    this._container.querySelector('.button-play').classList.remove('paused');
     this.playAudio();
   }
 
