@@ -1,10 +1,11 @@
 import createElement from "./createElement";
+import localization from "./localization";
 
 export default class Clock {
   constructor() {
     this._container = null;
-    this._username = '';
-    this._locale = 'en';
+    this._username = localStorage.getItem('momentumUsername') || '';
+    this._locale = localStorage.getItem('momentumLocale') || 'en';
     this.render();
     this.updateClock = this.updateClock.bind(this)
     this.inputUsername = this.inputUsername.bind(this)
@@ -12,10 +13,6 @@ export default class Clock {
 
   get elem() {
     return this._container
-  }
-
-  get username() {
-    return this._username = localStorage.getItem('momentumUsername') || '';
   }
 
   get input() {
@@ -27,7 +24,7 @@ export default class Clock {
   }
 
   render() {
-    this._container = createElement('clock-container', this.clockTemplate(this.username));
+    this._container = createElement('clock-container', this.clockTemplate(this._username));
     this.input.addEventListener('change', this.inputUsername);
   }
   
@@ -38,15 +35,11 @@ export default class Clock {
   }
 
   clockTemplate(name) {
-    const placeholder = {
-      'en': 'Enter your name',
-      'ru': 'Введите ваше имя'
-    }
     return `<div class="time"></div>
     <div class="date"></div>
     <div class="greetings">
       <p class="greeting"></p>
-      <input type="text" name="username" id="momentumUsername" placeholder="${placeholder[this._locale]}" value="${name}">
+      <input type="text" name="username" id="momentumUsername" placeholder="${localization[this._locale].clock.placeholder}" value="${name}">
     </div>`
   }
 

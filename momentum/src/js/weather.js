@@ -1,10 +1,11 @@
 import createElement from "./createElement";
+import localization from "./localization";
 
 export default class Weather {
   constructor() {
     this._container = null;
-    this._locale = 'en-US'.split('-')[0];
-    this.city = localStorage.getItem('momentumCity') ? localStorage.getItem('momentumCity') : 'Minsk';
+    this._locale = localStorage.getItem('momentumLocale') || 'en';
+    this.city = localStorage.getItem('momentumCity') || localization[this._locale].weather.city;
     this.render();
   }
 
@@ -47,7 +48,7 @@ export default class Weather {
   }
 
   set locale(value) {
-    this._locale = value.split('-')[0];
+    this._locale = value;
   }
 
   changeCity = () => {
@@ -56,7 +57,7 @@ export default class Weather {
       this.getWeather(this.city, this._locale);
     }
     else {
-      this.inputCity.setAttribute('placeholder', 'Enter correct city')
+      this.inputCity.setAttribute('placeholder', localization[this._locale].weather.placeholder)
     }
   }
 
@@ -71,12 +72,12 @@ export default class Weather {
       this.icon.classList.add(`owf-${data.weather[0].id}`);
       this.description.textContent = data.weather[0].description;
       this.feelsTemp.textContent = Math.round(data.main.feels_like)
-      this.wind.textContent = `${Math.round(data.wind.speed)} m/s`;
+      this.wind.textContent = `${Math.round(data.wind.speed)} ${localization[this._locale].weather.speed}`;
       this.humidity.textContent = `${data.main.humidity}%`;
     }
     else {
       this.inputCity.value = '';
-      this.inputCity.setAttribute('placeholder', 'Enter correct city');
+      this.inputCity.setAttribute('placeholder', localization[this._locale].weather.placeholder);
     }
   }
 
@@ -88,7 +89,7 @@ export default class Weather {
     </div>
     <div class="weather-description">
       <span class="description"></span>
-      <div class="feels">Feels like <span class="feels-temp"></span><span>&deg; C</span></div>
+      <div class="feels">${localization[this._locale].weather.feels} <span class="feels-temp"></span><span>&deg; C</span></div>
     </div>
     <div class="wind-humidity">
       <span class="wind"></span>

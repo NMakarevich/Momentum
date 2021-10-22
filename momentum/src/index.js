@@ -22,3 +22,5 @@ weatherSection.append(weather.elem);
 const clock = new Clock();
 clockSection.append(clock.elem)
 setInterval(clock.updateClock, 1000)
+
+localStorage.setItem('momentumLocale', 'ru')
