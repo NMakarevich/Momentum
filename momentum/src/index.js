@@ -5,10 +5,12 @@ import Player from './js/player'
 import Clock from './js/clock';
 import Weather from './js/weather';
 import Slider from './js/slider';
+import Quotes from './js/quotes';
 
 const playerSection = document.querySelector('.section-player')
 const clockSection = document.querySelector('.section-clock');
 const weatherSection = document.querySelector('.section-weather');
+const quotesSection = document.querySelector('.section-quotes');
 
 const slider = new Slider();
 document.body.prepend(slider.elem)
@@ -21,6 +23,7 @@ weatherSection.append(weather.elem);
 
 const clock = new Clock();
 clockSection.append(clock.elem)
-setInterval(clock.updateClock, 1000)
+setInterval(clock.updateClock, 1000);
 
-localStorage.setItem('momentumLocale', 'ru')
+const quotes = new Quotes();
+quotesSection.append(quotes.elem)
