@@ -15,8 +15,16 @@
 @import "player";
 @import "weather";
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   transition: all .7s;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .container {
