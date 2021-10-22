@@ -77,11 +77,11 @@ export default class Slider {
   }
 
   async setBgFlickr(time) {
-    const res = await fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=26e8f99f024428ff261410fb77ad5110&tags=nature,${time}&tags_mode=all&extras=url_l&format=json&nojsoncallback=1`)
+    const res = await fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=26e8f99f024428ff261410fb77ad5110&tags=${time},nature&tag_mode=all&extras=url_o&format=json&nojsoncallback=1`)
     const body = await res.json();
     const photos = await body.photos.photo;
-    const randomPhoto = Math.floor(Math.random() * 100);
-    const photo = await photos[randomPhoto].url_l;
+    const randomPhoto = Math.floor(Math.random() * 99);
+    const photo = await photos[randomPhoto].url_o;
     const img = new Image();
     img.src = photo;
     img.onload = () => {
