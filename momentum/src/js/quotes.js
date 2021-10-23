@@ -30,9 +30,10 @@ export default class Quotes {
   }
 
   render() {
-    this._container = createElement('quotes-container', this.quotesTemplate());
+    this._container = createElement('container quotes-container', this.quotesTemplate());
     this.eventListeners();
     this.getQuote();
+    setInterval(() => this.reloadButton.click(), 60000)
   }
 
   eventListeners() {

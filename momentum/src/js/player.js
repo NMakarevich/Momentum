@@ -13,7 +13,7 @@ export default class Player {
   }
 
   render() {
-    this._container = createElement('player-container', this.playerTemplate(playlist));
+    this._container = createElement('container player-container', this.playerTemplate(playlist));
     this.audio = new Audio();
     this.initAudio(this.currentAudio);
     this.eventListeners();

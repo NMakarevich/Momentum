@@ -7,8 +7,6 @@ export default class Clock {
     this._username = localStorage.getItem('momentumUsername') || '';
     this._locale = localStorage.getItem('momentumLocale') || 'en';
     this.render();
-    this.updateClock = this.updateClock.bind(this)
-    this.inputUsername = this.inputUsername.bind(this)
   }
 
   get elem() {
@@ -24,13 +22,12 @@ export default class Clock {
   }
 
   render() {
-    this._container = createElement('clock-container', this.clockTemplate(this._username));
+    this._container = createElement('container clock-container', this.clockTemplate(this._username));
     this.input.addEventListener('change', this.inputUsername);
   }
   
-  inputUsername() {
-    this._username = this.value;
-    console.log(this.value)
+  inputUsername = () => {
+    this._username = this.input.value;
     localStorage.setItem('momentumUsername', this._username)
   }
 
@@ -43,7 +40,7 @@ export default class Clock {
     </div>`
   }
 
-  updateClock() {
+  updateClock = () => {
     const dateObj = new Date();
     const time = this._container.querySelector('.time');
     const date = this._container.querySelector('.date');

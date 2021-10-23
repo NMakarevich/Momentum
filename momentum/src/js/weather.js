@@ -10,7 +10,7 @@ export default class Weather {
   }
 
   render() {
-    this._container = createElement('weather-container', this.weatherTemplate(this.city));
+    this._container = createElement('container weather-container', this.weatherTemplate(this.city));
     this.getWeather(this.city, this._locale);
     this.inputCity.addEventListener('change', this.changeCity)
   }

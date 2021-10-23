@@ -12,7 +12,7 @@ export default class Slider {
     document.body.style.backgroundColor = '#B3B3B3'
     this._container = createElement('slider-buttons', this.sliderTemplate());
     this.number = this.getRandomNum();
-    this.setBg(this.getTimeOfDay());
+    this.setBg();
     this._container.addEventListener('click', this.changeBackground);
   }
 
@@ -42,31 +42,31 @@ export default class Slider {
 
     if(target.classList.contains('button-prev')) {
       this.number === 1 ? this.number = 20 : this.number--;
-      this.setBg(this.getTimeOfDay())
+      this.setBg()
     }
     else {
       this.number === 20 ? this.number = 1 : this.number++;
-      this.setBg(this.getTimeOfDay());
+      this.setBg();
     }
   }
 
-  async setBg(time) {
-    if(this._imageSource == 'git') this.setBgGit(time);
-    if(this._imageSource == 'unsplash') this.setBgUnsplash(time);
-    if(this._imageSource == 'flickr') this.setBgFlickr(time);
+  async setBg() {
+    if(this._imageSource == 'git') this.setBgGit();
+    if(this._imageSource == 'unsplash') this.setBgUnsplash();
+    if(this._imageSource == 'flickr') this.setBgFlickr();
   }
 
-  setBgGit(time) {
+  setBgGit() {
     const img = new Image();
     const number = this.number < 10 ? `0${this.number}` : this.number;
-    img.src = `https://raw.githubusercontent.com/NMakarevich/stage1-tasks/assets/images/${time}/${number}.jpg`;
+    img.src = `https://raw.githubusercontent.com/NMakarevich/stage1-tasks/assets/images/${this.getTimeOfDay()}/${number}.jpg`;
     img.onload = () => {
       document.body.style.backgroundImage = `url(${img.src})`;
     }
   }
 
-  async setBgUnsplash(time) {
-    const res = await fetch(`https://api.unsplash.com/photos/random/?client_id=iOl0nDotHygXF4pVzFBy3sEQB0V3pkCBbZF8pblRz8Y&orientation=landscape&query=${time},nature`)
+  async setBgUnsplash() {
+    const res = await fetch(`https://api.unsplash.com/photos/random/?client_id=iOl0nDotHygXF4pVzFBy3sEQB0V3pkCBbZF8pblRz8Y&orientation=landscape&query=${this.getTimeOfDay()},nature`)
     const body = await res.json();
     const regular = await body.urls.regular;
     const img = new Image();
@@ -76,12 +76,12 @@ export default class Slider {
     }
   }
 
-  async setBgFlickr(time) {
-    const res = await fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=26e8f99f024428ff261410fb77ad5110&tags=${time},nature&tag_mode=all&extras=url_o&format=json&nojsoncallback=1`)
+  async setBgFlickr() {
+    const res = await fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=26e8f99f024428ff261410fb77ad5110&tags=${this.getTimeOfDay()},nature&tag_mode=all&extras=url_o&format=json&nojsoncallback=1`)
     const body = await res.json();
     const photos = await body.photos.photo;
     const randomPhoto = Math.floor(Math.random() * 99);
-    const photo = await photos[randomPhoto].url_o;
+    const photo = await photos[randomPhoto].url_o || this.setBgFlickr();
     const img = new Image();
     img.src = photo;
     img.onload = () => {

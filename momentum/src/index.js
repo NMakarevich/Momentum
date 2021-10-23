@@ -7,6 +7,8 @@ import Weather from './js/weather';
 import Slider from './js/slider';
 import Quotes from './js/quotes';
 
+const quotesLib = require('./json/quotes.json')
+
 const playerSection = document.querySelector('.section-player')
 const clockSection = document.querySelector('.section-clock');
 const weatherSection = document.querySelector('.section-weather');
