@@ -79,6 +79,11 @@ module.exports = {
           from: './src/assets/fonts/weather',
           to: './assets/fonts',
           noErrorOnMissing: true
+        },
+        {
+          from: './src/json',
+          to: './json',
+          noErrorOnMissing: true
         }
       ]
     }),
