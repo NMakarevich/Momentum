@@ -1,7 +1,7 @@
 .section-clock {
-  align-self: center;
   max-width: 900px;
   width: 100%;
+  margin: auto;
   .clock-container {
     display: flex;
     flex-direction: column;
@@ -41,6 +41,9 @@
       border: none;
       outline: none;
       background-color: transparent;
+      &::placeholder {
+        color: #b3b3b3;
+      }
     }
   }
 }

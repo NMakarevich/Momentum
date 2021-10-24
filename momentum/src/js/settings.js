@@ -158,9 +158,9 @@ export default class Settings {
       <div class="language">
         <h2>${localization[this._locale].settings.lang}</h2>
         <div>
-          <span>En</span>
-          <input type="checkbox" name="language" id="language"><label for="language" class="toggle"></label>
           <span>Ru</span>
+          <input type="checkbox" name="language" id="language"><label for="language" class="toggle"></label>
+          <span>En</span>
         </div>
       </div>
       <div class="bg-source">

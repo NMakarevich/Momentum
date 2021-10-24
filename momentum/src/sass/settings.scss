@@ -13,6 +13,7 @@
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
+    z-index: 10;
   }
   &-container {
     position: absolute;
@@ -100,8 +101,8 @@
         }
         input:checked + label span {
           display: block;
-          width: 7px;
-          height: 7px;
+          width: 6px;
+          height: 6px;
           border-radius: 50%;
           background-color: white;
         }
