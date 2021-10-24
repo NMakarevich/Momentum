@@ -36,7 +36,7 @@ export default class Weather {
   }
 
   get feelsTemp() {
-    return this._container.querySelector('.feels-temp')
+    return this._container.querySelector('.feels')
   }
 
   get wind() {
@@ -49,6 +49,7 @@ export default class Weather {
 
   set locale(value) {
     this._locale = value;
+    this.getWeather(this.city, this._locale)
   }
 
   changeCity = () => {
@@ -71,7 +72,7 @@ export default class Weather {
       this.icon.className = 'icon owf';
       this.icon.classList.add(`owf-${data.weather[0].id}`);
       this.description.textContent = data.weather[0].description;
-      this.feelsTemp.textContent = Math.round(data.main.feels_like)
+      this.feelsTemp.textContent = `${localization[this._locale].weather.feels}  ${Math.round(data.main.feels_like)}° C`
       this.wind.textContent = `${Math.round(data.wind.speed)} ${localization[this._locale].weather.speed}`;
       this.humidity.textContent = `${data.main.humidity}%`;
     }
@@ -89,7 +90,7 @@ export default class Weather {
     </div>
     <div class="weather-description">
       <span class="description"></span>
-      <div class="feels">${localization[this._locale].weather.feels} <span class="feels-temp"></span><span>&deg; C</span></div>
+      <div class="feels"><span>&deg; C</span></div>
     </div>
     <div class="wind-humidity">
       <span class="wind"></span>

@@ -4,7 +4,6 @@ export default class Quotes {
   constructor() {
     this._container = null;
     this._locale = localStorage.getItem('momentumLocale') || 'en';
-    this.array = [];
     this.render();
   }
 
@@ -24,6 +23,11 @@ export default class Quotes {
     return this._container.querySelector('cite')
   }
 
+  set locale(value) {
+    this._locale = value;
+    this.getQuote();
+  }
+
   changeQuote = () => {
     this.reloadButton.classList.add('animation');
     this.getQuote();
@@ -33,7 +37,7 @@ export default class Quotes {
     this._container = createElement('container quotes-container', this.quotesTemplate());
     this.eventListeners();
     this.getQuote();
-    setInterval(() => this.reloadButton.click(), 60000)
+    setInterval(() => this.getQuote(), 60000)
   }
 
   eventListeners() {

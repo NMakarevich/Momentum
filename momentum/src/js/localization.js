@@ -10,7 +10,13 @@ export default {
       placeholder: 'Enter your name'
     },
     settings: {
-
+      lang: 'Language',
+      imgSrc: 'Image source',
+      tags: 'Set image tags',
+      show: 'Show',
+      player: 'Player',
+      weather: 'Weather',
+      quotes: 'Quotes'
     }
   },
   'ru': {
@@ -24,7 +30,13 @@ export default {
       placeholder: 'Введите ваше имя'
     },
     settings: {
-
+      lang: 'Язык',
+      imgSrc: 'Источник изображений',
+      tags: 'Указать теги',
+      show: 'Показать',
+      player: 'Плеер',
+      weather: 'Погода',
+      quotes: 'Цитаты'
     }
   }
 }

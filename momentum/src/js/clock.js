@@ -19,6 +19,7 @@ export default class Clock {
 
   set locale(value) {
     this._locale = value;
+    this.input.placeholder = localization[this._locale].clock.placeholder
   }
 
   render() {

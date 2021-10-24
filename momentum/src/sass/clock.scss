@@ -1,10 +1,7 @@
 .section-clock {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  align-self: center;
   max-width: 900px;
   width: 100%;
-  transform: translate(-50%, -50%);
   .clock-container {
     display: flex;
     flex-direction: column;

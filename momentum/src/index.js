@@ -32,7 +32,8 @@ const quotes = new Quotes();
 quotesSection.append(quotes.elem)
 
 const settings = new Settings();
-quotesSection.after(settings.elem)
+quotesSection.after(settings.elem);
+const settingsContainer = settings.elem.querySelector('.settings-container');
 
 settings.elem.addEventListener('changeImgSource', (event) => {
   slider.imageSource = event.detail;
@@ -58,6 +59,16 @@ settings.elem.addEventListener('hideSection', (event) => {
 
 settings.elem.addEventListener('addTags', (event) => {
   slider.tags = event.detail;
+})
+
+settings.settingsButton.addEventListener('click', () => {
+  if (settingsContainer.classList.contains('hidden')) settingsContainer.classList.remove('hidden')
+  else settingsContainer.classList.add('hidden')
+})
+
+document.addEventListener('click', (event) => {
+  if (event.target == settings.settingsButton || event.target.closest('.settings-container')) return
+  if (!settingsContainer.classList.contains('hidden')) settingsContainer.classList.add('hidden')
 })
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -4,6 +4,7 @@ export default class Slider {
   constructor() {
     this._container = null;
     this.number = null;
+    this._tags = localStorage.getItem('momentumTags') || '';
     this._imageSource = localStorage.getItem('momentumImageSource') || 'git';
     this.render();
   }
@@ -22,8 +23,14 @@ export default class Slider {
 
   set imageSource(value) {
     this._imageSource = value;
-    localStorage.setItem('momentumImageSource', this._imageSource)
+    localStorage.setItem('momentumImageSource', this._imageSource);
+    this.setBg();
   }
+
+  set tags(value) {
+    this._tags = value;
+    this.setBg();
+  } 
 
   getTimeOfDay() {
     const hour = new Date().getHours();
@@ -66,7 +73,7 @@ export default class Slider {
   }
 
   async setBgUnsplash() {
-    const res = await fetch(`https://api.unsplash.com/photos/random/?client_id=iOl0nDotHygXF4pVzFBy3sEQB0V3pkCBbZF8pblRz8Y&orientation=landscape&query=${this.getTimeOfDay()},nature`)
+    const res = await fetch(`https://api.unsplash.com/photos/random/?client_id=iOl0nDotHygXF4pVzFBy3sEQB0V3pkCBbZF8pblRz8Y&orientation=landscape&query=${this.getTimeOfDay()},${this._tags}`)
     const body = await res.json();
     const regular = await body.urls.regular;
     const img = new Image();
@@ -77,7 +84,7 @@ export default class Slider {
   }
 
   async setBgFlickr() {
-    const res = await fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=26e8f99f024428ff261410fb77ad5110&tags=${this.getTimeOfDay()},nature&tag_mode=all&extras=url_o&format=json&nojsoncallback=1`)
+    const res = await fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=26e8f99f024428ff261410fb77ad5110&tags=${this.getTimeOfDay()},${this._tags}&tag_mode=all&extras=url_o&format=json&nojsoncallback=1`)
     const body = await res.json();
     const photos = await body.photos.photo;
     const randomPhoto = Math.floor(Math.random() * 99);

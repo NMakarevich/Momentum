@@ -19,6 +19,36 @@ export default class Settings {
     return this._container;
   }
 
+  get settingsButton() {
+    return this._container.querySelector('.button-settings');
+  }
+
+  get textTags() {
+    return [
+      {
+        lang: this._container.querySelector('.language h2')
+      },
+      {
+        imgSrc: this._container.querySelector('.bg-source h2')
+      },
+      {
+        tags: this._container.querySelector('.tags span')
+      },
+      {
+        show: this._container.querySelector('.show-sections h2')
+      },
+      {
+        player: this._container.querySelector('span.player')
+      },
+      {
+        weather: this._container.querySelector('span.weather')
+      },
+      {
+        quotes: this._container.querySelector('span.quotes')
+      }
+    ]
+  }
+
   get localeToggle() {
     return this._container.querySelector('input[id="language"]')
   }
@@ -29,6 +59,10 @@ export default class Settings {
 
   get sectionsInputs() {
     return this._container.querySelectorAll('.list-section input')
+  }
+
+  get tagsContainer() {
+    return this._container.querySelector('.tags')
   }
 
   get tagsInput() {
@@ -50,6 +84,10 @@ export default class Settings {
       })
       this.elem.dispatchEvent(evt);
     }
+
+    if (this.imageSource === 'unsplash' 
+      || this.imageSource === 'flickr') this.tagsContainer.classList.remove('none');
+    else this.tagsContainer.classList.add('none')
   }
 
   changeLocale = () => {
@@ -58,6 +96,12 @@ export default class Settings {
       bubbles: true
     })
     this.elem.dispatchEvent(event);
+    if (this.localeToggle.checked) this._locale = 'en';
+    else this._locale = 'ru';
+    this.textTags.forEach(tag => {
+      const key = Object.keys(tag)[0];
+      tag[key].textContent = localization[this._locale].settings[key];
+    })
   } 
 
   hideSection = (event) => {
@@ -89,6 +133,9 @@ export default class Settings {
     this.sectionsInputs.forEach(item => {
       if (this.sections[item.id] === 'true') item.checked = true
     })
+    if (this.imageSource === 'unsplash' 
+      || this.imageSource === 'flickr') this.tagsContainer.classList.remove('none');
+    else this.tagsContainer.classList.add('none')
     this.tagsInput.value = this.tags;
   }
 
@@ -107,13 +154,12 @@ export default class Settings {
   settingsTemplate() {
     return `
     <button type="button" class="button button-settings"></button>
-    <div class="settings-container">
+    <div class="settings-container hidden">
       <div class="language">
         <h2>${localization[this._locale].settings.lang}</h2>
         <div>
-          <input type="checkbox" name="language" id="language">
           <span>En</span>
-          <label for="language"></label>
+          <input type="checkbox" name="language" id="language"><label for="language" class="toggle"></label>
           <span>Ru</span>
         </div>
       </div>
@@ -122,19 +168,22 @@ export default class Settings {
         <div>
           <ul class="list list-source">
             <li class="list--item">
-              <label for="git">GitHub</label>
+              <span class="git">GitHub</span>
               <input type="radio" name="source" id="git" checked>
+              <label for="git"><span></span></label>
             </li>
             <li class="list--item">
-              <label for="unsplash">Unsplash API</label>
+              <span class="unsplash">Unsplash API</span>
               <input type="radio" name="source" id="unsplash">
+              <label for="unsplash"><span></span></label>
             </li>
             <li class="list--item">
-              <label for="flickr">Flickr API</label>
+              <span class="flickr">Flickr API</span>
               <input type="radio" name="source" id="flickr">
+              <label for="flickr"><span></span></label>
             </li>
           </ul>
-          <div class="tags hidden">
+          <div class="tags none">
             <span>${localization[this._locale].settings.tags}</span>
             <input type="text" name="tags" id="tags">
           </div>
@@ -144,16 +193,16 @@ export default class Settings {
         <h2>${localization[this._locale].settings.show}</h2>
         <ul class="list list-section">
           <li class="list--item">
-            <label for="player">${localization[this._locale].settings.player}</label>
-            <input type="checkbox" name="player" id="player">
+            <span class="player">${localization[this._locale].settings.player}</span>
+            <input type="checkbox" name="player" id="player"><label for="player" class="toggle"></label>
           </li>
           <li class="list--item">
-            <label for="weather">${localization[this._locale].settings.weather}</label>
-            <input type="checkbox" name="weather" id="weather">
+            <span class="weather">${localization[this._locale].settings.weather}</span>
+            <input type="checkbox" name="weather" id="weather"><label for="weather" class="toggle"></label>
           </li>
           <li class="list--item">
-            <label for="quotes">${localization[this._locale].settings.quotes}</label>
-            <input type="checkbox" name="quotes" id="quotes">
+            <span class="quotes">${localization[this._locale].settings.quotes}</span>
+            <input type="checkbox" name="quotes" id="quotes"><label for="quotes" class="toggle"></label>
           </li>
         </ul>
       </div>

@@ -24,8 +24,8 @@
     .weather-description {
       font-size: 12px;
       line-height: 18px;
-      .description {
-        text-transform: capitalize;
+      &::first-letter {
+        text-transform: uppercase;
       }
     }
 

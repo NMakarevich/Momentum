@@ -1,7 +1,7 @@
 .settings {
   position: absolute;
-  left: 30px;
-  bottom: 30px;
+  left: 10px;
+  bottom: 60px;
   .button-settings {
     width: 24px;
     height: 24px;
@@ -22,6 +22,9 @@
     width: 290px;
     background-color: rgba($color: #000000, $alpha: .5);
     border-radius: 10px;
+    opacity: 1;
+    z-index: 1;
+    transition: all .4s;
     &::after {
       position: absolute;
       bottom: -15px;
@@ -35,6 +38,10 @@
     }
     .language {
       align-items: center;
+      div {
+        display: flex;
+        gap: 5px;
+      }
     }
     & > div {
       display: flex;
@@ -47,6 +54,12 @@
     }
     .bg-source > div {
       width: 150px;
+      .tags {
+        display: block;
+        &.none {
+          display: none;
+        }
+      }
       input[type="text"] {
         margin-top: 5px;
         padding: 5px;
@@ -69,6 +82,29 @@
       list-style: none;
       &-source {
         margin-bottom: 10px;
+        input {
+          width: 0;
+          height: 0;
+          appearance: none;
+        }
+        label {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 16px;
+          height: 16px;
+          border: 3px solid white;
+          box-sizing: border-box;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+        input:checked + label span {
+          display: block;
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background-color: white;
+        }
       }
       &--item {
         display: flex;
@@ -77,4 +113,34 @@
       }
     }
   }
+}
+input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  appearance: none;
+}
+label.toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 32px;
+  height: 16px;
+  border-radius: 8px;
+  border: 1px solid white;
+  cursor: pointer;
+  &::before {
+    position: absolute;
+    left: 1px;
+    content: "";
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: white;
+    transition: all .3s;
+  }
+}
+
+input[type="checkbox"]:checked + label::before {
+  left: 17px;
 }
