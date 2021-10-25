@@ -34,7 +34,7 @@
 
 @media (max-width: 620px) {
   .section {
-    & > .container {
+    .container {
       padding: 10px;
     }
     &-player {
