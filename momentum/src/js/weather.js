@@ -49,6 +49,14 @@ export default class Weather {
 
   set locale(value) {
     this._locale = value;
+    if (this._locale === 'ru' && this.city === 'Minsk') {
+      this.city = 'Минск';
+      this.inputCity.value = this.city;
+    }
+    if (this._locale === 'en' && this.city === 'Минск') {
+      this.city = 'Minsk';
+      this.inputCity.value = this.city;
+    }
     this.getWeather(this.city, this._locale)
   }
 

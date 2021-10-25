@@ -81,6 +81,7 @@ export default class Player {
     this.initAudio(this.currentAudio);
     this.playerTitle.textContent = playlist[this.currentAudio].title;
     this.highlightCurrentAudio();
+    this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.remove('paused');
     this.audio.play();
     this.audio.addEventListener('timeupdate', this.updatePlayerProgress);
   }
@@ -102,12 +103,14 @@ export default class Player {
   }
 
   prevAudio = () => {
+    this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.add('paused');
     this.currentAudio--;
     if (this.currentAudio < 0) this.currentAudio = playlist.length - 1;
     this.playAudio();
   }
 
   nextAudio = () => {
+    this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.add('paused');
     this.currentAudio++;
     if (this.currentAudio > playlist.length - 1) this.currentAudio = 0;
     this.playAudio();
@@ -131,12 +134,14 @@ export default class Player {
       if (this.audio.paused) {
         this.audio.addEventListener('timeupdate', this.updatePlayerProgress);
         target.classList.toggle('paused');
+        this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.remove('paused');
         this.highlightCurrentAudio();
         this.audio.play();
       }
       else {
         this.audio.removeEventListener('timeupdate', this.updatePlayerProgress);
         target.classList.toggle('paused');
+        this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.add('paused');
         this.audio.pause();
       }
     }
@@ -171,9 +176,27 @@ export default class Player {
     const target = event.target;
     if (target.tagName !== 'BUTTON') return;
 
-    this.currentAudio = target.dataset.index;
-    this._container.querySelector('.button-play').classList.remove('paused');
-    this.playAudio();
+    if (this.currentAudio != target.dataset.index) {
+      this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.add('paused');
+      target.classList.remove('paused');
+      this.currentAudio = target.dataset.index;
+      this._container.querySelector('.button-play').classList.remove('paused');
+      this.playAudio();
+      return
+    }
+    if (this.currentAudio == target.dataset.index && this.audio.paused) {
+      target.classList.remove('paused');
+      this.currentAudio = target.dataset.index;
+      this._container.querySelector('.button-play').classList.remove('paused');
+      this.playAudio();
+      return
+    }
+    if (this.currentAudio == target.dataset.index) {
+      this._container.querySelector('.button-play').classList.add('paused');
+      this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.add('paused');
+      this.audio.pause();
+      return
+    }
   }
 
   eventListeners() {
@@ -211,7 +234,7 @@ export default class Player {
     <ul class="playlist">
       ${playlist.map((item, index) => 
         `<li class="playlist-item">
-          <button type="button" class="button button-item" data-index="${index}"></button>
+          <button type="button" class="button button-item paused" data-index="${index}"></button>
           <span>${item.title}</span>
         </li>`).join('')}
     </ul>`

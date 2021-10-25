@@ -16,6 +16,7 @@ export default {
       show: 'Show',
       player: 'Player',
       weather: 'Weather',
+      clock: 'Clock',
       quotes: 'Quotes'
     }
   },
@@ -36,6 +37,7 @@ export default {
       show: 'Показать',
       player: 'Плеер',
       weather: 'Погода',
+      clock: 'Часы',
       quotes: 'Цитаты'
     }
   }

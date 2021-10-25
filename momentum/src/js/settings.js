@@ -10,6 +10,7 @@ export default class Settings {
     this.sections = {
       player: localStorage.getItem('momentumHidePlayer') || 'true',
       weather: localStorage.getItem('momentumHideWeather') || 'true',
+      clock: localStorage.getItem('momentumHideClock') || 'true',
       quotes: localStorage.getItem('momentumHideQuotes') || 'true'
     }
     this.render();
@@ -42,6 +43,9 @@ export default class Settings {
       },
       {
         weather: this._container.querySelector('span.weather')
+      },
+      {
+        clock: this._container.querySelector('span.clock')
       },
       {
         quotes: this._container.querySelector('span.quotes')
@@ -199,6 +203,10 @@ export default class Settings {
           <li class="list--item">
             <span class="weather">${localization[this._locale].settings.weather}</span>
             <input type="checkbox" name="weather" id="weather"><label for="weather" class="toggle"></label>
+          </li>
+          <li class="list--item">
+            <span class="clock">${localization[this._locale].settings.clock}</span>
+            <input type="checkbox" name="clock" id="clock"><label for="clock" class="toggle"></label>
           </li>
           <li class="list--item">
             <span class="quotes">${localization[this._locale].settings.quotes}</span>
