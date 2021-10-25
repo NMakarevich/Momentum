@@ -11,16 +11,10 @@
     .button {
       width: 32px;
       height: 32px;
-      border: none;
-      outline: none;
-      background-color: transparent;
       background-image: url('../assets/svg/reload.svg');
-      background-position: center;
-      background-repeat: no-repeat;
       background-size: 100% 100%;
       transform-origin: center;
       transition: all .3s;
-      cursor: pointer;
       &.animation {
         transform: rotate(180deg);
       }

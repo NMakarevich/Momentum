@@ -43,6 +43,20 @@ body {
   }
 }
 
+.button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  opacity: .7;
+  transition: opacity .3s;
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .hidden {
   opacity: 0;
   z-index: -1;

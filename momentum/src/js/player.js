@@ -204,7 +204,7 @@ export default class Player {
         <button type="button" class="button button-next" name="nextTrack"></button>
       </div>
       <div class="controls-volume">
-        <button type="button" class="volume-button active"></button>  
+        <button type="button" class="button volume-button active"></button>  
         <input type="range" min="0" max="1" step="0.01" value="0.5" class="player-volume">
       </div>
     </div>
