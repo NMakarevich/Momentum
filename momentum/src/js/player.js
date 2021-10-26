@@ -55,6 +55,10 @@ export default class Player {
     return this._container.querySelectorAll('.playlist-item');
   }
 
+  getCurrentAudio(item) {
+    return this._container.querySelector(`button[data-index="${item}"]`)
+  }
+
   convertTime(time) {
     const seconds = Math.floor(time % 60) < 10 ? `0${Math.floor(time % 60)}` : Math.floor(time % 60);
     const minutes = Math.floor(time / 60) < 10 ? `0${Math.floor(time / 60)}` : Math.floor(time / 60);
@@ -68,7 +72,7 @@ export default class Player {
     this.playerCurrentTime.textContent = '00:00';
     this.playerDuration.textContent = playlist[number].duration;
     this.playerProgress.value = 0;
-    this.volumeValue = 0.5;
+    this.volumeValue = this.volumeBar.value;
     this.audio.volume = this.volumeValue;
   }
 
@@ -81,7 +85,7 @@ export default class Player {
     this.initAudio(this.currentAudio);
     this.playerTitle.textContent = playlist[this.currentAudio].title;
     this.highlightCurrentAudio();
-    this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.remove('paused');
+    this.getCurrentAudio(this.currentAudio).classList.remove('paused');
     this.audio.play();
     this.audio.addEventListener('timeupdate', this.updatePlayerProgress);
   }
@@ -103,14 +107,14 @@ export default class Player {
   }
 
   prevAudio = () => {
-    this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.add('paused');
+    this.getCurrentAudio(this.currentAudio).classList.add('paused');
     this.currentAudio--;
     if (this.currentAudio < 0) this.currentAudio = playlist.length - 1;
     this.playAudio();
   }
 
   nextAudio = () => {
-    this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.add('paused');
+    this.getCurrentAudio(this.currentAudio).classList.add('paused');
     this.currentAudio++;
     if (this.currentAudio > playlist.length - 1) this.currentAudio = 0;
     this.playAudio();
@@ -134,14 +138,14 @@ export default class Player {
       if (this.audio.paused) {
         this.audio.addEventListener('timeupdate', this.updatePlayerProgress);
         target.classList.toggle('paused');
-        this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.remove('paused');
+        this.getCurrentAudio(this.currentAudio).classList.remove('paused');
         this.highlightCurrentAudio();
         this.audio.play();
       }
       else {
         this.audio.removeEventListener('timeupdate', this.updatePlayerProgress);
         target.classList.toggle('paused');
-        this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.add('paused');
+        this.getCurrentAudio(this.currentAudio).classList.add('paused');
         this.audio.pause();
       }
     }
@@ -177,25 +181,22 @@ export default class Player {
     if (target.tagName !== 'BUTTON') return;
 
     if (this.currentAudio != target.dataset.index) {
-      this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.add('paused');
+      this.getCurrentAudio(this.currentAudio).classList.add('paused');
       target.classList.remove('paused');
       this.currentAudio = target.dataset.index;
       this._container.querySelector('.button-play').classList.remove('paused');
       this.playAudio();
-      return
     }
-    if (this.currentAudio == target.dataset.index && this.audio.paused) {
+    else if (this.audio.paused) {
       target.classList.remove('paused');
       this.currentAudio = target.dataset.index;
       this._container.querySelector('.button-play').classList.remove('paused');
       this.audio.play();
-      return
     }
-    if (this.currentAudio == target.dataset.index) {
+    else {
       this._container.querySelector('.button-play').classList.add('paused');
-      this._container.querySelector(`button[data-index="${this.currentAudio}"]`).classList.add('paused');
+      this.getCurrentAudio(this.currentAudio).classList.add('paused');
       this.audio.pause();
-      return
     }
   }
 
