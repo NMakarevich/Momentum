@@ -188,7 +188,7 @@ export default class Player {
       target.classList.remove('paused');
       this.currentAudio = target.dataset.index;
       this._container.querySelector('.button-play').classList.remove('paused');
-      this.playAudio();
+      this.audio.play();
       return
     }
     if (this.currentAudio == target.dataset.index) {
