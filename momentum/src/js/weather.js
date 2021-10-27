@@ -49,14 +49,6 @@ export default class Weather {
 
   set locale(value) {
     this._locale = value;
-    if (this._locale === 'ru' && this.city === 'Minsk') {
-      this.city = 'Минск';
-      this.inputCity.value = this.city;
-    }
-    if (this._locale === 'en' && this.city === 'Минск') {
-      this.city = 'Minsk';
-      this.inputCity.value = this.city;
-    }
     this.getWeather(this.city, this._locale)
   }
 
@@ -74,15 +66,16 @@ export default class Weather {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=b390d0382bd27b3ec995a6e51e4ddb90&units=metric&lang=${lang}`
     const res = await fetch(url);
     if (res.status === 200) {
-      localStorage.setItem('momentumCity', city);
       const data = await res.json();
       this.temperature.textContent = Math.round(data.main.temp);
       this.icon.className = 'icon owf';
       this.icon.classList.add(`owf-${data.weather[0].id}`);
+      this.inputCity.value = data.name;
       this.description.textContent = data.weather[0].description;
       this.feelsTemp.textContent = `${localization[this._locale].weather.feels}  ${Math.round(data.main.feels_like)}° C`
       this.wind.textContent = `${Math.round(data.wind.speed)} ${localization[this._locale].weather.speed}`;
       this.humidity.textContent = `${data.main.humidity}%`;
+      localStorage.setItem('momentumCity', this.inputCity.value);
     }
     else {
       this.inputCity.value = '';
